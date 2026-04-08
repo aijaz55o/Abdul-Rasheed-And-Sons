@@ -2,9 +2,65 @@
 <html>
 <head>
     <title>Abdul Rasheed & Sons</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #f4f4f4;
+        }
+        header {
+            background: black;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Abdul Rasheed & Sons</h1>
-    <p>We sell premium perfumes.</p>
+
+<header>
+    <h1>Abdul Rasheed & Sons</h1>
+    <p>Premium Perfumes</p>
+</header>
+
+<div class="products">
+    <div class="card">
+        <h3>Oud Perfume</h3>
+        <p>₹999</p>
+        <button onclick="window.open('https://wa.me/919052341353')">
+            Order on WhatsApp
+        </button>
+    </div>
+
+    <div class="card">
+        <h3>Rose Attar</h3>
+        <p>₹499</p>
+        <button onclick="window.open('https://wa.me/919052341353')">
+            Order on WhatsApp
+        </button>
+    </div>
+</div>
+
 </body>
 </html>
