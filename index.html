@@ -6,7 +6,6 @@
         body {
             font-family: Arial;
             margin: 0;
-            background: #f4f4f4;
         }
         header {
             background: black;
@@ -14,52 +13,68 @@
             padding: 15px;
             text-align: center;
         }
-        .products {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            width: 200px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        button {
-            background: green;
-            color: white;
-            border: none;
+        nav {
+            background: #333;
             padding: 10px;
+            text-align: center;
+        }
+        nav button {
+            margin: 5px;
+            padding: 10px;
+            color: white;
+            background: green;
+            border: none;
             cursor: pointer;
         }
+        .section {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
     </style>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+    </script>
 </head>
+
 <body>
 
 <header>
     <h1>Abdul Rasheed & Sons</h1>
-    <p>Premium Perfumes</p>
 </header>
 
-<div class="products">
-    <div class="card">
-        <h3>Oud Perfume</h3>
-        <p>₹999</p>
-        <button onclick="window.open('https://wa.me/9121486651')">
-            Order on WhatsApp
-        </button>
-    </div>
+<nav>
+    <button onclick="showSection('ittar')">Ittar</button>
+    <button onclick="showSection('perfumes')">Perfumes</button>
+</nav>
 
-    <div class="card">
-        <h3>Rose Attar</h3>
-        <p>₹499</p>
-        <button onclick="window.open('https://wa.me/9121486651')">
-            Order on WhatsApp
-        </button>
-    </div>
+<!-- ITTAR MAIN -->
+<div id="ittar" class="section">
+    <h2>Ittar Category</h2>
+    <button onclick="showSection('normal')">Normal</button>
+    <button onclick="showSection('premium')">Premium</button>
+</div>
+
+<!-- NORMAL ITTAR -->
+<div id="normal" class="section">
+    <h2>Normal Ittar</h2>
+    <p>Add your normal attar products here</p>
+</div>
+
+<!-- PREMIUM ITTAR -->
+<div id="premium" class="section">
+    <h2>Premium Ittar</h2>
+    <p>Add your premium attar products here</p>
+</div>
+
+<!-- PERFUMES -->
+<div id="perfumes" class="section">
+    <h2>Perfumes</h2>
+    <p>Add your perfume products here</p>
 </div>
 
 </body>
