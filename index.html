@@ -1,164 +1,125 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
     <title>Abdul Rasheed & Sons</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f5f5f5; }
+    header { background: linear-gradient(90deg, black, #333); color: white; padding: 20px; text-align: center; font-size: 24px; }
 
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            background: #f5f5f5;
-        }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; background: white; padding: 15px; }
+    nav button { padding: 10px 18px; border-radius: 25px; border: none; background: black; color: white; cursor: pointer; }
 
-        header {
-            background: linear-gradient(90deg, black, #333);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-        }
+    #searchBox { padding: 10px; width: 90%; max-width: 400px; border-radius: 25px; border: 1px solid #ccc; }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            background: white;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+    .section { display: none; padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
 
-        nav button {
-            padding: 10px 18px;
-            border-radius: 25px;
-            border: none;
-            background: black;
-            color: white;
-            cursor: pointer;
-        }
+    .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
 
-        nav button:hover {
-            background: gold;
-            color: black;
-        }
+    .btn { margin-top: 5px; padding: 6px 10px; border: none; border-radius: 20px; cursor: pointer; }
+    .orderBtn { background: green; color: white; }
+    .cartBtn { background: orange; color: white; }
 
-        .section {
-            display: none;
-            padding: 20px;
-        }
+    #cartBox { position: fixed; right: 10px; top: 80px; background: white; padding: 10px; width: 220px; border-radius: 10px; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-        }
+    #whatsappFloat { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px; border-radius: 50%; cursor: pointer; }
 
-        .card {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+    input.qty { width: 50px; margin-top: 5px; }
+</style>
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+<script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        .btn {
-            margin-top: 10px;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 20px;
-            background: green;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
 
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-        }
-    </script>
-</head>
+    function orderNow(product) {
+        let number = "9121486651";
+        let message = `Hello, I want to order ${product}`;
+        let url = `https://wa.me/91${number}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
 
-<body>
+    function addToCart(product, qtyId) {
+        let qty = document.getElementById(qtyId).value;
+        cart.push(product + " x" + qty);
+        saveCart();
+    }
 
-<header>
-    Abdul Rasheed & Sons
-</header>
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+    }
 
-<nav>
+    function updateCart() {
+        let cartList = document.getElementById('cartItems');
+        cartList.innerHTML = '';
+        cart.forEach((item, index) => {
+            let li = document.createElement('li');
+            li.innerHTML = item + " <button onclick='removeItem("+index+")'>❌</button>";
+            cartList.appendChild(li);
+        });
+    }
+
+    function removeItem(index) {
+        cart.splice(index,1);
+        saveCart();
+    }
+
+    function sendCartToWhatsApp() {
+        let number = "9121486651";
+        let message = "Hello, I want to order: " + cart.join(', ');
+        let url = `https://wa.me/91${number}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    function searchProducts() {
+        let input = document.getElementById('searchBox').value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            let text = card.innerText.toLowerCase();
+            card.style.display = text.includes(input) ? 'block' : 'none';
+        });
+    }
+
+    window.onload = updateCart;
+</script>
+
+</head><body><header>Abdul Rasheed & Sons</header><nav>
+    <input type="text" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
     <button onclick="showSection('ittar')">Ittar</button>
-    <button onclick="showSection('perfumes')">Perfumes</button>
-    <button onclick="showSection('bakhoor')">Bakhoor</button>
-</nav>
-
-<!-- ITTAR -->
-<div id="ittar" class="section">
-    <h2>Ittar Collection</h2>
+</nav><div id="cartBox">
+    <h4>Cart</h4>
+    <ul id="cartItems"></ul>
+    <button onclick="sendCartToWhatsApp()" class="btn orderBtn">Order All</button>
+</div><div id="ittar" class="section">
+    <h2>Ittar</h2>
     <button onclick="showSection('normal')">Normal</button>
-    <button onclick="showSection('premium')">Premium</button>
-</div>
-
-<!-- NORMAL -->
-<div id="normal" class="section">
+</div><div id="normal" class="section">
     <h2>Normal Ittar</h2>
-    <div class="grid">
-        <div class="card">Dark Chocolate<button class="btn">Order</button></div>
-        <div class="card">Attar Full<button class="btn">Order</button></div>
-        <div class="card">Body Musk<button class="btn">Order</button></div>
-        <div class="card">1 Million Noir<button class="btn">Order</button></div>
-        <div class="card">Black Stone<button class="btn">Order</button></div>
-        <div class="card">Black Boss<button class="btn">Order</button></div>
-        <div class="card">Rose Taifi<button class="btn">Order</button></div>
-        <div class="card">Balkis<button class="btn">Order</button></div>
-        <div class="card">Aseel<button class="btn">Order</button></div>
-        <div class="card">papillion<button class="btn">Order</button></div>
-        <div class="card">Juzoor Al Oudh<button class="btn">Order</button></div>
-        <div class="card">Sabaya<button class="btn">Order</button></div>
-        <div class="card">Sandaliya<button class="btn">Order</button></div>
-        <div class="card">Ice Cool<button class="btn">Order</button></div>
-        <div class="card">Soofiani<button class="btn">Order</button></div>
-        <div class="card">Rythum<button class="btn">Order</button></div>
-        <div class="card">Janathul firdous<button class="btn">Order</button></div>
-        <div class="card">majmua<button class="btn">Order</button></div>
-        <div class="card">Musk Rose<button class="btn">Order</button></div>
-        <div class="card">Amer Al Oudh<button class="btn">Order</button></div>
-        <div class="card">Black Oudh<button class="btn">Order</button></div>
-        <div class="card">Bakhoor<button class="btn">Order</button></div>
-        
+    <div class="grid"><div class="card">
+        Dark Chocolate<br>
+        Qty: <input id="q1" class="qty" type="number" value="1" min="1">
+        <button class="btn orderBtn" onclick="orderNow('Dark Chocolate')">Order</button>
+        <button class="btn cartBtn" onclick="addToCart('Dark Chocolate','q1')">Add</button>
     </div>
-</div>
 
-<!-- PREMIUM -->
-<div id="premium" class="section">
-    <h2>Premium Ittar</h2>
-    <div class="grid">
-        <div class="card">Oudh e Azam<button class="btn">Order</button></div>
-        <div class="card">Afrah<button class="btn">Order</button></div>
-        <div class="card">Mukhal Al Arab<button class="btn">Order</button></div>
-        <div class="card">Raqs<button class="btn">Order</button></div>
-        <div class="card">Mizan<button class="btn">Order</button></div>
-        <div class="card">Habeeba<button class="btn">Order</button></div>
-        <div class="card">Mush Al Azhar<button class="btn">Order</button></div>
-        <div class="card">Rais Al Hind<button class="btn">Order</button></div>
+    <div class="card">
+        Body Musk<br>
+        Qty: <input id="q2" class="qty" type="number" value="1" min="1">
+        <button class="btn orderBtn" onclick="orderNow('Body Musk')">Order</button>
+        <button class="btn cartBtn" onclick="addToCart('Body Musk','q2')">Add</button>
     </div>
+
+    <div class="card">
+        Black Boss<br>
+        Qty: <input id="q3" class="qty" type="number" value="1" min="1">
+        <button class="btn orderBtn" onclick="orderNow('Black Boss')">Order</button>
+        <button class="btn cartBtn" onclick="addToCart('Black Boss','q3')">Add</button>
+    </div>
+
 </div>
 
-<!-- PERFUMES -->
-<div id="perfumes" class="section">
-    <h2>Perfumes</h2>
-    <p>Coming soon...</p>
-</div>
-
-<!-- BAKHOOR -->
-<div id="bakhoor" class="section">
-    <h2>Bakhoor</h2>
-    <p>Coming soon...</p>
-</div>
-
-</body>
+</div><div id="whatsappFloat" onclick="sendCartToWhatsApp()">💬</div></body>
 </html>
