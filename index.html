@@ -1,125 +1,159 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
     <title>Abdul Rasheed & Sons</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"><style>
-    body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f5f5f5; }
-    header { background: linear-gradient(90deg, black, #333); color: white; padding: 20px; text-align: center; font-size: 24px; }
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; background: white; padding: 15px; }
-    nav button { padding: 10px 18px; border-radius: 25px; border: none; background: black; color: white; cursor: pointer; }
+    <style>
+        body { font-family: Arial; margin: 0; background: #111; color: white; }
 
-    #searchBox { padding: 10px; width: 90%; max-width: 400px; border-radius: 25px; border: 1px solid #ccc; }
+        header { background: black; padding: 20px; text-align: center; font-size: 22px; }
 
-    .section { display: none; padding: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
+        nav { text-align: center; padding: 10px; background: #222; }
 
-    .card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        #searchBox {
+            padding: 10px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: none;
+        }
 
-    .btn { margin-top: 5px; padding: 6px 10px; border: none; border-radius: 20px; cursor: pointer; }
-    .orderBtn { background: green; color: white; }
-    .cartBtn { background: orange; color: white; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
 
-    #cartBox { position: fixed; right: 10px; top: 80px; background: white; padding: 10px; width: 220px; border-radius: 10px; }
+        .card {
+            background: #222;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
 
-    #whatsappFloat { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px; border-radius: 50%; cursor: pointer; }
+        .btn {
+            margin-top: 5px;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
 
-    input.qty { width: 50px; margin-top: 5px; }
-</style>
+        .orderBtn { background: green; color: white; }
+        .cartBtn { background: orange; color: white; }
 
-<script>
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        #cartBox {
+            position: fixed;
+            top: 80px;
+            right: 10px;
+            background: #222;
+            padding: 10px;
+            width: 200px;
+            border-radius: 10px;
+        }
 
-    function showSection(id) {
-        document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-    }
+        #whatsappFloat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: green;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
-    function orderNow(product) {
-        let number = "9121486651";
-        let message = `Hello, I want to order ${product}`;
-        let url = `https://wa.me/91${number}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    }
+        input.qty {
+            width: 50px;
+        }
+    </style>
 
-    function addToCart(product, qtyId) {
-        let qty = document.getElementById(qtyId).value;
-        cart.push(product + " x" + qty);
-        saveCart();
-    }
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCart();
-    }
+        function orderNow(product) {
+            let msg = "Hello, I want to order " + product;
+            window.open("https://wa.me/919121486651?text=" + encodeURIComponent(msg));
+        }
 
-    function updateCart() {
-        let cartList = document.getElementById('cartItems');
-        cartList.innerHTML = '';
-        cart.forEach((item, index) => {
-            let li = document.createElement('li');
-            li.innerHTML = item + " <button onclick='removeItem("+index+")'>❌</button>";
-            cartList.appendChild(li);
-        });
-    }
+        function addToCart(product, id) {
+            let qty = document.getElementById(id).value;
+            cart.push(product + " x" + qty);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
 
-    function removeItem(index) {
-        cart.splice(index,1);
-        saveCart();
-    }
+        function updateCart() {
+            let list = document.getElementById("cartItems");
+            list.innerHTML = "";
+            cart.forEach((item, i) => {
+                list.innerHTML += `<li>${item} <button onclick="removeItem(${i})">❌</button></li>`;
+            });
+        }
 
-    function sendCartToWhatsApp() {
-        let number = "9121486651";
-        let message = "Hello, I want to order: " + cart.join(', ');
-        let url = `https://wa.me/91${number}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    }
+        function removeItem(i) {
+            cart.splice(i, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCart();
+        }
 
-    function searchProducts() {
-        let input = document.getElementById('searchBox').value.toLowerCase();
-        let cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            let text = card.innerText.toLowerCase();
-            card.style.display = text.includes(input) ? 'block' : 'none';
-        });
-    }
+        function sendCart() {
+            let msg = "Hello, I want to order: " + cart.join(", ");
+            window.open("https://wa.me/919121486651?text=" + encodeURIComponent(msg));
+        }
 
-    window.onload = updateCart;
-</script>
+        function searchProducts() {
+            let input = document.getElementById("searchBox").value.toLowerCase();
+            document.querySelectorAll(".card").forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
+            });
+        }
 
-</head><body><header>Abdul Rasheed & Sons</header><nav>
-    <input type="text" id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
-    <button onclick="showSection('ittar')">Ittar</button>
-</nav><div id="cartBox">
+        window.onload = function () {
+            updateCart();
+        };
+    </script>
+</head>
+
+<body>
+
+<header>Abdul Rasheed & Sons</header>
+
+<nav>
+    <input id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
+</nav>
+
+<div id="cartBox">
     <h4>Cart</h4>
     <ul id="cartItems"></ul>
-    <button onclick="sendCartToWhatsApp()" class="btn orderBtn">Order All</button>
-</div><div id="ittar" class="section">
-    <h2>Ittar</h2>
-    <button onclick="showSection('normal')">Normal</button>
-</div><div id="normal" class="section">
-    <h2>Normal Ittar</h2>
-    <div class="grid"><div class="card">
-        Dark Chocolate<br>
-        Qty: <input id="q1" class="qty" type="number" value="1" min="1">
-        <button class="btn orderBtn" onclick="orderNow('Dark Chocolate')">Order</button>
-        <button class="btn cartBtn" onclick="addToCart('Dark Chocolate','q1')">Add</button>
-    </div>
+    <button onclick="sendCart()" class="btn orderBtn">Order All</button>
+</div>
 
-    <div class="card">
-        Body Musk<br>
-        Qty: <input id="q2" class="qty" type="number" value="1" min="1">
-        <button class="btn orderBtn" onclick="orderNow('Body Musk')">Order</button>
-        <button class="btn cartBtn" onclick="addToCart('Body Musk','q2')">Add</button>
-    </div>
+<div class="grid">
 
-    <div class="card">
-        Black Boss<br>
-        Qty: <input id="q3" class="qty" type="number" value="1" min="1">
-        <button class="btn orderBtn" onclick="orderNow('Black Boss')">Order</button>
-        <button class="btn cartBtn" onclick="addToCart('Black Boss','q3')">Add</button>
-    </div>
+<script>
+let products = [
+"Dark Chocolate","Body Musk","1 Million Noir","Black Stone","Black Boss",
+"Rose Taifi","Balkis","Attar Full","Aseel","Papillion",
+"Juzoor Al Oudh","White Oudh","Sandaliya","Sabaya","Ice Cool",
+"Black Oudh","Soofiani","Rythum","Janatul Firdous","Mujmua",
+"Musk Rose","Amir Al Oudh","Bakhoor"
+];
+
+document.write(products.map((p,i)=>`
+<div class="card">
+${p}<br>
+Qty: <input id="q${i}" class="qty" type="number" value="1" min="1"><br>
+<button class="btn orderBtn" onclick="orderNow('${p}')">Order</button>
+<button class="btn cartBtn" onclick="addToCart('${p}','q${i}')">Add</button>
+</div>
+`).join(""));
+</script>
 
 </div>
 
-</div><div id="whatsappFloat" onclick="sendCartToWhatsApp()">💬</div></body>
+<div id="whatsappFloat" onclick="sendCart()">💬</div>
+
+</body>
 </html>
