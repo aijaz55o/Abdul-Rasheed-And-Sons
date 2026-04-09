@@ -2,34 +2,77 @@
 <html>
 <head>
     <title>Abdul Rasheed & Sons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Segoe UI', sans-serif;
             margin: 0;
+            background: #f5f5f5;
         }
+
         header {
+            background: linear-gradient(90deg, black, #333);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav button {
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: none;
             background: black;
             color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        nav {
-            background: #333;
-            padding: 10px;
-            text-align: center;
-        }
-        nav button {
-            margin: 5px;
-            padding: 10px;
-            color: white;
-            background: green;
-            border: none;
             cursor: pointer;
         }
+
+        nav button:hover {
+            background: gold;
+            color: black;
+        }
+
         .section {
             display: none;
             padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 20px;
+            background: green;
+            color: white;
+            cursor: pointer;
         }
     </style>
 
@@ -44,37 +87,64 @@
 <body>
 
 <header>
-    <h1>Abdul Rasheed & Sons</h1>
+    Abdul Rasheed & Sons
 </header>
 
 <nav>
     <button onclick="showSection('ittar')">Ittar</button>
     <button onclick="showSection('perfumes')">Perfumes</button>
+    <button onclick="showSection('bakhoor')">Bakhoor</button>
 </nav>
 
-<!-- ITTAR MAIN -->
+<!-- ITTAR -->
 <div id="ittar" class="section">
-    <h2>Ittar Category</h2>
+    <h2>Ittar Collection</h2>
     <button onclick="showSection('normal')">Normal</button>
     <button onclick="showSection('premium')">Premium</button>
 </div>
 
-<!-- NORMAL ITTAR -->
+<!-- NORMAL -->
 <div id="normal" class="section">
     <h2>Normal Ittar</h2>
-    <p>Add your normal attar products here</p>
+    <div class="grid">
+        <div class="card">Dark Chocolate<button class="btn">Order</button></div>
+        <div class="card">Body Musk<button class="btn">Order</button></div>
+        <div class="card">1 Million Noir<button class="btn">Order</button></div>
+        <div class="card">Black Stone<button class="btn">Order</button></div>
+        <div class="card">Black Boss<button class="btn">Order</button></div>
+        <div class="card">Rose Taifi<button class="btn">Order</button></div>
+        <div class="card">Balkis<button class="btn">Order</button></div>
+        <div class="card">Aseel<button class="btn">Order</button></div>
+        <div class="card">Sabaya<button class="btn">Order</button></div>
+        <div class="card">Black Oudh<button class="btn">Order</button></div>
+    </div>
 </div>
 
-<!-- PREMIUM ITTAR -->
+<!-- PREMIUM -->
 <div id="premium" class="section">
     <h2>Premium Ittar</h2>
-    <p>Add your premium attar products here</p>
+    <div class="grid">
+        <div class="card">Oudh e Azam<button class="btn">Order</button></div>
+        <div class="card">Afrah<button class="btn">Order</button></div>
+        <div class="card">Mukhal Al Arab<button class="btn">Order</button></div>
+        <div class="card">Raqs<button class="btn">Order</button></div>
+        <div class="card">Mizan<button class="btn">Order</button></div>
+        <div class="card">Habeeba<button class="btn">Order</button></div>
+        <div class="card">Mush Al Azhar<button class="btn">Order</button></div>
+        <div class="card">Rais Al Hind<button class="btn">Order</button></div>
+    </div>
 </div>
 
 <!-- PERFUMES -->
 <div id="perfumes" class="section">
     <h2>Perfumes</h2>
-    <p>Add your perfume products here</p>
+    <p>Coming soon...</p>
+</div>
+
+<!-- BAKHOOR -->
+<div id="bakhoor" class="section">
+    <h2>Bakhoor</h2>
+    <p>Coming soon...</p>
 </div>
 
 </body>
