@@ -12,15 +12,11 @@
       text-align: center;
     }
 
-    h1 {
-      margin-top: 10px;
-    }
-
     button {
       padding: 10px;
       margin: 5px;
-      border: none;
       border-radius: 8px;
+      border: none;
       cursor: pointer;
     }
 
@@ -83,35 +79,57 @@
   <button onclick="goBack()">⬅ Back</button>
 </div>
 
-<!-- NORMAL ITTAR -->
+<!-- NORMAL -->
 <div id="normal" style="display:none;">
 
-  <div class="card">Dark Chocolate <br>
+  <!-- LEFT ITEMS -->
+  <div class="card">Dark Chocolate<br>
     Qty: <input type="number" value="1" id="q1">
     <br>
-    <button class="green" onclick="order('Dark Chocolate', 'q1')">Order</button>
-    <button class="orange" onclick="addToCart('Dark Chocolate', 'q1')">Add</button>
+    <button class="green" onclick="order('Dark Chocolate','q1')">Order</button>
+    <button class="orange" onclick="addToCart('Dark Chocolate','q1')">Add</button>
   </div>
 
-  <div class="card">1 Million Noir <br>
+  <div class="card">Black Stone<br>
     Qty: <input type="number" value="1" id="q2">
     <br>
-    <button class="green" onclick="order('1 Million Noir', 'q2')">Order</button>
-    <button class="orange" onclick="addToCart('1 Million Noir', 'q2')">Add</button>
+    <button class="green" onclick="order('Black Stone','q2')">Order</button>
+    <button class="orange" onclick="addToCart('Black Stone','q2')">Add</button>
   </div>
 
-  <div class="card">Black Stone <br>
+  <div class="card">Black Boss<br>
     Qty: <input type="number" value="1" id="q3">
     <br>
-    <button class="green" onclick="order('Black Stone', 'q3')">Order</button>
-    <button class="orange" onclick="addToCart('Black Stone', 'q3')">Add</button>
+    <button class="green" onclick="order('Black Boss','q3')">Order</button>
+    <button class="orange" onclick="addToCart('Black Boss','q3')">Add</button>
   </div>
 
-  <div class="card">Rose Taifi <br>
+  <div class="card">Balkis<br>
     Qty: <input type="number" value="1" id="q4">
     <br>
-    <button class="green" onclick="order('Rose Taifi', 'q4')">Order</button>
-    <button class="orange" onclick="addToCart('Rose Taifi', 'q4')">Add</button>
+    <button class="green" onclick="order('Balkis','q4')">Order</button>
+    <button class="orange" onclick="addToCart('Balkis','q4')">Add</button>
+  </div>
+
+  <div class="card">Aseel<br>
+    Qty: <input type="number" value="1" id="q5">
+    <br>
+    <button class="green" onclick="order('Aseel','q5')">Order</button>
+    <button class="orange" onclick="addToCart('Aseel','q5')">Add</button>
+  </div>
+
+  <div class="card">Sandalya<br>
+    Qty: <input type="number" value="1" id="q6">
+    <br>
+    <button class="green" onclick="order('Sandalya','q6')">Order</button>
+    <button class="orange" onclick="addToCart('Sandalya','q6')">Add</button>
+  </div>
+
+  <div class="card">Sabaya<br>
+    Qty: <input type="number" value="1" id="q7">
+    <br>
+    <button class="green" onclick="order('Sabaya','q7')">Order</button>
+    <button class="orange" onclick="addToCart('Sabaya','q7')">Add</button>
   </div>
 
   <br>
@@ -120,17 +138,60 @@
 
 <!-- PREMIUM -->
 <div id="premium" style="display:none;">
-  <h3>Premium Coming Soon</h3>
+
+  <div class="card">1 Million Noir<br>
+    Qty: <input type="number" value="1" id="q8">
+    <br>
+    <button class="green" onclick="order('1 Million Noir','q8')">Order</button>
+    <button class="orange" onclick="addToCart('1 Million Noir','q8')">Add</button>
+  </div>
+
+  <div class="card">Rose Taifi<br>
+    Qty: <input type="number" value="1" id="q9">
+    <br>
+    <button class="green" onclick="order('Rose Taifi','q9')">Order</button>
+    <button class="orange" onclick="addToCart('Rose Taifi','q9')">Add</button>
+  </div>
+
+  <div class="card">Attar Full<br>
+    Qty: <input type="number" value="1" id="q10">
+    <br>
+    <button class="green" onclick="order('Attar Full','q10')">Order</button>
+    <button class="orange" onclick="addToCart('Attar Full','q10')">Add</button>
+  </div>
+
+  <div class="card">Papillion<br>
+    Qty: <input type="number" value="1" id="q11">
+    <br>
+    <button class="green" onclick="order('Papillion','q11')">Order</button>
+    <button class="orange" onclick="addToCart('Papillion','q11')">Add</button>
+  </div>
+
+  <div class="card">Juzoor Al Oudh<br>
+    Qty: <input type="number" value="1" id="q12">
+    <br>
+    <button class="green" onclick="order('Juzoor Al Oudh','q12')">Order</button>
+    <button class="orange" onclick="addToCart('Juzoor Al Oudh','q12')">Add</button>
+  </div>
+
+  <div class="card">White Oudh<br>
+    Qty: <input type="number" value="1" id="q13">
+    <br>
+    <button class="green" onclick="order('White Oudh','q13')">Order</button>
+    <button class="orange" onclick="addToCart('White Oudh','q13')">Add</button>
+  </div>
+
+  <br>
   <button onclick="goBack()">⬅ Back</button>
 </div>
 
-<!-- PERFUMES -->
+<!-- PERFUME -->
 <div id="perfume" style="display:none;">
   <h3>Perfumes Coming Soon</h3>
   <button onclick="goBack()">⬅ Back</button>
 </div>
 
-<!-- WHATSAPP BUTTON -->
+<!-- WHATSAPP -->
 <a id="whatsapp" onclick="orderCart()">💬</a>
 
 <script>
@@ -150,24 +211,23 @@ function goBack() {
   location.reload();
 }
 
-function order(name, qtyId) {
-  let qty = document.getElementById(qtyId).value;
+function order(name, id) {
+  let qty = document.getElementById(id).value;
   let msg = `I want to order:\n${name} x ${qty}`;
   window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
 }
 
-function addToCart(name, qtyId) {
-  let qty = document.getElementById(qtyId).value;
+function addToCart(name, id) {
+  let qty = document.getElementById(id).value;
   cart.push(`${name} x ${qty}`);
   alert("Added to cart");
 }
 
 function orderCart() {
   if (cart.length === 0) {
-    alert("Cart is empty");
+    alert("Cart empty");
     return;
   }
-
   let msg = "I want to order:\n" + cart.join("\n");
   window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
 }
