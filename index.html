@@ -1,159 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Abdul Rasheed & Sons</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abdul Rasheed & Sons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body { font-family: Arial; margin: 0; background: #111; color: white; }
+  <style>
+    body {
+      font-family: Arial;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-        header { background: black; padding: 20px; text-align: center; font-size: 22px; }
+    h1 {
+      margin-top: 10px;
+    }
 
-        nav { text-align: center; padding: 10px; background: #222; }
+    button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-        #searchBox {
-            padding: 10px;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 20px;
-            border: none;
-        }
+    .green { background: green; color: white; }
+    .orange { background: orange; color: white; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            padding: 10px;
-        }
+    .card {
+      background: #111;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 12px;
+      display: inline-block;
+      width: 40%;
+    }
 
-        .card {
-            background: #222;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    input {
+      width: 50px;
+      text-align: center;
+    }
 
-        .btn {
-            margin-top: 5px;
-            padding: 5px 10px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-        }
+    #search {
+      width: 80%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin: 10px;
+    }
 
-        .orderBtn { background: green; color: white; }
-        .cartBtn { background: orange; color: white; }
-
-        #cartBox {
-            position: fixed;
-            top: 80px;
-            right: 10px;
-            background: #222;
-            padding: 10px;
-            width: 200px;
-            border-radius: 10px;
-        }
-
-        #whatsappFloat {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: green;
-            padding: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        input.qty {
-            width: 50px;
-        }
-    </style>
-
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function orderNow(product) {
-            let msg = "Hello, I want to order " + product;
-            window.open("https://wa.me/919121486651?text=" + encodeURIComponent(msg));
-        }
-
-        function addToCart(product, id) {
-            let qty = document.getElementById(id).value;
-            cart.push(product + " x" + qty);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCart();
-        }
-
-        function updateCart() {
-            let list = document.getElementById("cartItems");
-            list.innerHTML = "";
-            cart.forEach((item, i) => {
-                list.innerHTML += `<li>${item} <button onclick="removeItem(${i})">❌</button></li>`;
-            });
-        }
-
-        function removeItem(i) {
-            cart.splice(i, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCart();
-        }
-
-        function sendCart() {
-            let msg = "Hello, I want to order: " + cart.join(", ");
-            window.open("https://wa.me/919121486651?text=" + encodeURIComponent(msg));
-        }
-
-        function searchProducts() {
-            let input = document.getElementById("searchBox").value.toLowerCase();
-            document.querySelectorAll(".card").forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
-            });
-        }
-
-        window.onload = function () {
-            updateCart();
-        };
-    </script>
+    #whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: green;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>Abdul Rasheed & Sons</header>
+<h1>Abdul Rasheed & Sons</h1>
 
-<nav>
-    <input id="searchBox" placeholder="Search products..." onkeyup="searchProducts()">
-</nav>
+<input type="text" id="search" placeholder="Search products..." onkeyup="searchProduct()">
 
-<div id="cartBox">
-    <h4>Cart</h4>
-    <ul id="cartItems"></ul>
-    <button onclick="sendCart()" class="btn orderBtn">Order All</button>
+<!-- HOME -->
+<div id="home">
+  <button onclick="showCategory('ittar')">Ittar</button>
+  <button onclick="showCategory('perfume')">Perfumes</button>
 </div>
 
-<div class="grid">
+<!-- ITTAR -->
+<div id="ittar" style="display:none;">
+  <h2>Ittar</h2>
+  <button onclick="showType('normal')">Normal</button>
+  <button onclick="showType('premium')">Premium</button>
+  <br><br>
+  <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<!-- NORMAL ITTAR -->
+<div id="normal" style="display:none;">
+
+  <div class="card">Dark Chocolate <br>
+    Qty: <input type="number" value="1" id="q1">
+    <br>
+    <button class="green" onclick="order('Dark Chocolate', 'q1')">Order</button>
+    <button class="orange" onclick="addToCart('Dark Chocolate', 'q1')">Add</button>
+  </div>
+
+  <div class="card">1 Million Noir <br>
+    Qty: <input type="number" value="1" id="q2">
+    <br>
+    <button class="green" onclick="order('1 Million Noir', 'q2')">Order</button>
+    <button class="orange" onclick="addToCart('1 Million Noir', 'q2')">Add</button>
+  </div>
+
+  <div class="card">Black Stone <br>
+    Qty: <input type="number" value="1" id="q3">
+    <br>
+    <button class="green" onclick="order('Black Stone', 'q3')">Order</button>
+    <button class="orange" onclick="addToCart('Black Stone', 'q3')">Add</button>
+  </div>
+
+  <div class="card">Rose Taifi <br>
+    Qty: <input type="number" value="1" id="q4">
+    <br>
+    <button class="green" onclick="order('Rose Taifi', 'q4')">Order</button>
+    <button class="orange" onclick="addToCart('Rose Taifi', 'q4')">Add</button>
+  </div>
+
+  <br>
+  <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<!-- PREMIUM -->
+<div id="premium" style="display:none;">
+  <h3>Premium Coming Soon</h3>
+  <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<!-- PERFUMES -->
+<div id="perfume" style="display:none;">
+  <h3>Perfumes Coming Soon</h3>
+  <button onclick="goBack()">⬅ Back</button>
+</div>
+
+<!-- WHATSAPP BUTTON -->
+<a id="whatsapp" onclick="orderCart()">💬</a>
 
 <script>
-let products = [
-"Dark Chocolate","Body Musk","1 Million Noir","Black Stone","Black Boss",
-"Rose Taifi","Balkis","Attar Full","Aseel","Papillion",
-"Juzoor Al Oudh","White Oudh","Sandaliya","Sabaya","Ice Cool",
-"Black Oudh","Soofiani","Rythum","Janatul Firdous","Mujmua",
-"Musk Rose","Amir Al Oudh","Bakhoor"
-];
+let cart = [];
 
-document.write(products.map((p,i)=>`
-<div class="card">
-${p}<br>
-Qty: <input id="q${i}" class="qty" type="number" value="1" min="1"><br>
-<button class="btn orderBtn" onclick="orderNow('${p}')">Order</button>
-<button class="btn cartBtn" onclick="addToCart('${p}','q${i}')">Add</button>
-</div>
-`).join(""));
+function showCategory(type) {
+  document.getElementById("home").style.display = "none";
+  document.getElementById(type).style.display = "block";
+}
+
+function showType(type) {
+  document.getElementById("ittar").style.display = "none";
+  document.getElementById(type).style.display = "block";
+}
+
+function goBack() {
+  location.reload();
+}
+
+function order(name, qtyId) {
+  let qty = document.getElementById(qtyId).value;
+  let msg = `I want to order:\n${name} x ${qty}`;
+  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
+}
+
+function addToCart(name, qtyId) {
+  let qty = document.getElementById(qtyId).value;
+  cart.push(`${name} x ${qty}`);
+  alert("Added to cart");
+}
+
+function orderCart() {
+  if (cart.length === 0) {
+    alert("Cart is empty");
+    return;
+  }
+
+  let msg = "I want to order:\n" + cart.join("\n");
+  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
+}
+
+function searchProduct() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.getElementsByClassName("card");
+
+  for (let i = 0; i < cards.length; i++) {
+    let text = cards[i].innerText.toLowerCase();
+    cards[i].style.display = text.includes(input) ? "inline-block" : "none";
+  }
+}
 </script>
-
-</div>
-
-<div id="whatsappFloat" onclick="sendCart()">💬</div>
 
 </body>
 </html>
