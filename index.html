@@ -9,54 +9,45 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #0f0f0f;
+  background: #0b0b0b;
   color: white;
 }
 
 header {
-  padding: 20px;
+  padding: 15px;
   text-align: center;
-  font-size: 24px;
-  font-weight: bold;
   background: black;
+  font-size: 22px;
   letter-spacing: 2px;
 }
 
-.banner {
+.search {
+  padding: 10px;
   text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(to right, #111, #222);
 }
 
-.banner h1 {
-  font-size: 40px;
+.search input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 25px;
+  border: none;
 }
 
 .section {
   padding: 20px;
 }
 
-.section h2 {
-  border-left: 4px solid gold;
-  padding-left: 10px;
-}
-
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 15px;
 }
 
 .card {
   background: #1a1a1a;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05);
 }
 
 .card img {
@@ -64,34 +55,32 @@ header {
   border-radius: 10px;
 }
 
+.price {
+  color: gold;
+  margin: 5px 0;
+}
+
+.qty {
+  width: 50px;
+}
+
 button {
-  margin-top: 10px;
-  padding: 8px;
   background: gold;
   border: none;
+  padding: 6px;
+  margin-top: 5px;
   border-radius: 5px;
-  cursor: pointer;
 }
 
-.cart {
+.cartBtn, .waBtn {
   position: fixed;
-  bottom: 20px;
   right: 20px;
-  background: gold;
-  padding: 15px;
-  border-radius: 50%;
-  font-weight: bold;
-}
-
-.whatsapp {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background: green;
-  color: white;
   padding: 15px;
   border-radius: 50%;
 }
+
+.cartBtn { bottom: 20px; background: gold; }
+.waBtn { bottom: 80px; background: green; color: white; }
 </style>
 </head>
 
@@ -99,9 +88,8 @@ button {
 
 <header>ABDUL RASHEED & SONS</header>
 
-<div class="banner">
-  <h1>Luxury Fragrances</h1>
-  <p>Premium Ittars & Perfumes</p>
+<div class="search">
+  <input type="text" placeholder="Search..." onkeyup="searchProducts(this.value)">
 </div>
 
 <div class="section">
@@ -119,42 +107,74 @@ button {
   <div class="products" id="perfumes"></div>
 </div>
 
-<div class="cart" onclick="checkout()">🛒</div>
-<div class="whatsapp" onclick="checkout()">📲</div>
+<div class="cartBtn" onclick="checkout()">🛒</div>
+<div class="waBtn" onclick="checkout()">📲</div>
 
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-const normal = ["Oudh e Azam","Afrah","Mukhal Al Arab"];
-const premium = ["Raqs","Mizan","Habeeba","Mush Al Azhar","Rais Al Hind"];
-const perfumes = ["Royal Gold","Black Musk","Desert Oud"];
+const products = {
+  normal: [
+    {name:"Oudh e Azam", price:200},
+    {name:"Afrah", price:180},
+    {name:"Mukhal Al Arab", price:220}
+  ],
+  premium: [
+    {name:"Raqs", price:400},
+    {name:"Mizan", price:450},
+    {name:"Habeeba", price:500},
+    {name:"Mush Al Azhar", price:550},
+    {name:"Rais Al Hind", price:600}
+  ],
+  perfumes: [
+    {name:"Royal Gold", price:700},
+    {name:"Black Musk", price:650},
+    {name:"Desert Oud", price:750}
+  ]
+};
 
-function displayProducts(list, id) {
-  let container = document.getElementById(id);
-  list.forEach(item => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="https://via.placeholder.com/150">
-        <h4>${item}</h4>
-        <button onclick="addToCart('${item}')">Add</button>
-      </div>
-    `;
+function display(id, list) {
+  let box = document.getElementById(id);
+  box.innerHTML = "";
+  list.forEach(p => {
+    box.innerHTML += `
+    <div class="card">
+      <img src="https://via.placeholder.com/150">
+      <h4>${p.name}</h4>
+      <div class="price">₹${p.price}</div>
+      <input type="number" min="1" value="1" class="qty" id="${p.name}">
+      <button onclick="add('${p.name}', ${p.price})">Add</button>
+    </div>`;
   });
 }
 
-function addToCart(item) {
-  cart.push(item);
-  alert(item + " added");
+function add(name, price) {
+  let qty = document.getElementById(name).value;
+  if(cart[name]) cart[name].qty += parseInt(qty);
+  else cart[name] = {price, qty: parseInt(qty)};
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart");
 }
 
 function checkout() {
-  let message = "Order:\n" + cart.join("\n");
-  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(message)}`);
+  let msg = "Order:%0A";
+  for(let item in cart) {
+    msg += item + " x" + cart[item].qty + "%0A";
+  }
+  window.open("https://wa.me/919121486651?text=" + msg);
 }
 
-displayProducts(normal,"normal");
-displayProducts(premium,"premium");
-displayProducts(perfumes,"perfumes");
+function searchProducts(val) {
+  val = val.toLowerCase();
+  for(let key in products) {
+    let filtered = products[key].filter(p => p.name.toLowerCase().includes(val));
+    display(key, filtered);
+  }
+}
+
+display("normal", products.normal);
+display("premium", products.premium);
+display("perfumes", products.perfumes);
 </script>
 
 </body>
