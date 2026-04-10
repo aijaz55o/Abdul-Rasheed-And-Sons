@@ -3,34 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdul Rasheed & Sons</title>
+<title>Dark Vexon</title>
 
 <style>
-body {margin:0;font-family:Poppins;background:#0a0a0a;color:white;}
-header {padding:15px;text-align:center;background:black;font-size:22px;}
-.search input {width:90%;padding:10px;margin:10px;border-radius:20px;border:none;}
-.section {padding:20px;}
-.products {display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px;}
-.card {background:#1a1a1a;padding:10px;border-radius:12px;}
-.card img {width:100%;border-radius:10px;}
-.price {color:gold;}
-button {margin-top:5px;padding:6px;border:none;border-radius:5px;cursor:pointer;}
-.add {background:gold;}
-.buy {background:green;color:white;}
-.cartBtn,.waBtn {position:fixed;right:20px;padding:15px;border-radius:50%;}
-.cartBtn {bottom:20px;background:gold;}
-.waBtn {bottom:80px;background:green;color:white;}
-.popup {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:none;justify-content:center;align-items:center;}
-.popupBox {background:#111;padding:20px;border-radius:10px;width:80%;}
+body {
+  margin:0;
+  font-family:Poppins;
+  background:#050505;
+  color:white;
+}
+
+header {
+  text-align:center;
+  padding:20px;
+  background:black;
+}
+.logo {
+  font-size:28px;
+  letter-spacing:4px;
+  color:#FFD700;
+  font-weight:bold;
+}
+.tagline {
+  font-size:12px;
+  color:gray;
+}
+
+.search input {
+  width:90%;
+  padding:10px;
+  margin:10px;
+  border-radius:20px;
+  border:none;
+}
+
+.section { padding:20px; }
+
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:15px;
+}
+
+.card {
+  background:#121212;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid rgba(255,215,0,0.2);
+  transition:0.3s;
+}
+.card:hover {
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 0 15px rgba(255,215,0,0.2);
+}
+
+.card img {
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.price { color:#FFD700; }
+
+button {
+  margin-top:5px;
+  padding:6px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.add { background:#FFD700; color:black; }
+.buy { background:#8B0000; color:white; }
+
+.cartBtn,.waBtn {
+  position:fixed;
+  right:20px;
+  padding:15px;
+  border-radius:50%;
+}
+
+.cartBtn { bottom:20px; background:#FFD700; }
+.waBtn { bottom:80px; background:green; color:white; }
+
+.popup {
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.popupBox {
+  background:#111;
+  padding:20px;
+  border-radius:10px;
+  width:80%;
+}
+
+footer {
+  text-align:center;
+  padding:20px;
+  background:black;
+  color:gray;
+}
 </style>
 </head>
 
 <body>
 
-<header>ABDUL RASHEED & SONS</header>
+<header>
+  <div class="logo">DARK VEXON</div>
+  <div class="tagline">LUXURY FRAGRANCES</div>
+</header>
 
 <div class="search">
-<input placeholder="Search..." onkeyup="search(this.value)">
+  <input placeholder="Search..." onkeyup="search(this.value)">
 </div>
 
 <div class="section">
@@ -54,6 +145,8 @@ button {margin-top:5px;padding:6px;border:none;border-radius:5px;cursor:pointer;
 <div class="popup" id="popup">
   <div class="popupBox" id="popupBox"></div>
 </div>
+
+<footer>© 2026 Dark Vexon. All rights reserved.</footer>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
@@ -113,7 +206,7 @@ function buyNow(name,price){
 }
 
 function openCart(){
-  let html="<h3>Your Cart</h3>";
+  let html="<h2 style='color:#FFD700'>Your Cart</h2>";
   let total=0;
 
   for(let i in cart){
@@ -124,15 +217,19 @@ function openCart(){
     total += subtotal;
 
     html += `
-    <div>
-      ${i} x${item.qty} = ₹${subtotal}
+    <div style="display:flex;justify-content:space-between;margin:10px 0;">
+      <span>${i} x${item.qty}</span>
+      <span>₹${subtotal}</span>
       <button onclick="removeItem('${i}')">❌</button>
     </div>`;
   }
 
-  html += `<hr>Total: ₹${total}<br><br>
-  <button onclick="checkout()">Order Now</button>
-  <button onclick="clearCart()">Clear Cart</button>`;
+  html += `
+  <hr>
+  <h3>Total: ₹${total}</h3>
+  <button onclick="checkout()">Order via WhatsApp</button>
+  <button onclick="clearCart()">Clear</button>
+  `;
 
   document.getElementById("popupBox").innerHTML = html;
   document.getElementById("popup").style.display="flex";
