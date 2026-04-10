@@ -177,6 +177,9 @@ footer {
 <footer>© 2026 Dark Vexon. All rights reserved.</footer>
 
 <script>
+  function scrollToProducts(){
+  document.querySelector(".section").scrollIntoView({behavior:"smooth"});
+}
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
 const products = {
