@@ -1,232 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Abdul Rasheed & Sons</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul Rasheed & Sons</title>
 
-  <style>
-    body { font-family: Arial; background:#000; color:#fff; text-align:center; }
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
 
-    button {
-      padding:10px; margin:5px;
-      border-radius:8px; border:none; cursor:pointer;
-    }
+header {
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  background: black;
+  letter-spacing: 2px;
+}
 
-    .green { background:green; color:white; }
-    .orange { background:orange; color:white; }
+.banner {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(to right, #111, #222);
+}
 
-    .card {
-      background:#111; padding:15px;
-      margin:10px; border-radius:12px;
-      display:inline-block; width:40%;
-    }
+.banner h1 {
+  font-size: 40px;
+}
 
-    input { width:50px; text-align:center; }
+.section {
+  padding: 20px;
+}
 
-    #search {
-      width:80%; padding:10px;
-      border-radius:10px; border:none;
-      margin:10px;
-    }
+.section h2 {
+  border-left: 4px solid gold;
+  padding-left: 10px;
+}
 
-    #whatsapp {
-      position:fixed; bottom:20px; right:20px;
-      background:green; color:white;
-      padding:15px; border-radius:50%;
-      font-size:20px;
-    }
-  </style>
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px;
+  background: gold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: gold;
+  padding: 15px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.whatsapp {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: green;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+}
+</style>
 </head>
 
 <body>
 
-<h1>Abdul Rasheed & Sons</h1>
+<header>ABDUL RASHEED & SONS</header>
 
-<input type="text" id="search" placeholder="Search products..." onkeyup="searchProduct()">
-
-<!-- HOME -->
-<div id="home">
-  <button onclick="showCategory('ittar')">Ittar</button>
-  <button onclick="showCategory('perfume')">Perfumes</button>
+<div class="banner">
+  <h1>Luxury Fragrances</h1>
+  <p>Premium Ittars & Perfumes</p>
 </div>
 
-<!-- ITTAR -->
-<div id="ittar" style="display:none;">
-  <h2>Ittar</h2>
-  <button onclick="showType('normal')">Normal</button>
-  <button onclick="showType('premium')">Premium</button>
-  <br><br>
-  <button onclick="goBack()">⬅ Back</button>
+<div class="section">
+  <h2>Ittar - Normal</h2>
+  <div class="products" id="normal"></div>
 </div>
 
-<!-- NORMAL (ALL OLD ITEMS) -->
-<div id="normal" style="display:none;">
-
-  <!-- ALL ITEMS HERE -->
-  <div class="card">Dark Chocolate<br>Qty: <input type="number" value="1" id="q1"><br>
-    <button class="green" onclick="order('Dark Chocolate','q1')">Order</button>
-    <button class="orange" onclick="addToCart('Dark Chocolate','q1')">Add</button>
-  </div>
-
-  <div class="card">1 Million Noir<br>Qty: <input type="number" value="1" id="q2"><br>
-    <button class="green" onclick="order('1 Million Noir','q2')">Order</button>
-    <button class="orange" onclick="addToCart('1 Million Noir','q2')">Add</button>
-  </div>
-
-  <div class="card">Black Stone<br>Qty: <input type="number" value="1" id="q3"><br>
-    <button class="green" onclick="order('Black Stone','q3')">Order</button>
-    <button class="orange" onclick="addToCart('Black Stone','q3')">Add</button>
-  </div>
-
-  <div class="card">Black Boss<br>Qty: <input type="number" value="1" id="q4"><br>
-    <button class="green" onclick="order('Black Boss','q4')">Order</button>
-    <button class="orange" onclick="addToCart('Black Boss','q4')">Add</button>
-  </div>
-
-  <div class="card">Rose Taifi<br>Qty: <input type="number" value="1" id="q5"><br>
-    <button class="green" onclick="order('Rose Taifi','q5')">Order</button>
-    <button class="orange" onclick="addToCart('Rose Taifi','q5')">Add</button>
-  </div>
-
-  <div class="card">Balkis<br>Qty: <input type="number" value="1" id="q6"><br>
-    <button class="green" onclick="order('Balkis','q6')">Order</button>
-    <button class="orange" onclick="addToCart('Balkis','q6')">Add</button>
-  </div>
-
-  <div class="card">Attar Full<br>Qty: <input type="number" value="1" id="q7"><br>
-    <button class="green" onclick="order('Attar Full','q7')">Order</button>
-    <button class="orange" onclick="addToCart('Attar Full','q7')">Add</button>
-  </div>
-
-  <div class="card">Aseel<br>Qty: <input type="number" value="1" id="q8"><br>
-    <button class="green" onclick="order('Aseel','q8')">Order</button>
-    <button class="orange" onclick="addToCart('Aseel','q8')">Add</button>
-  </div>
-
-  <div class="card">Papillion<br>Qty: <input type="number" value="1" id="q9"><br>
-    <button class="green" onclick="order('Papillion','q9')">Order</button>
-    <button class="orange" onclick="addToCart('Papillion','q9')">Add</button>
-  </div>
-
-  <div class="card">Juzoor Al Oudh<br>Qty: <input type="number" value="1" id="q10"><br>
-    <button class="green" onclick="order('Juzoor Al Oudh','q10')">Order</button>
-    <button class="orange" onclick="addToCart('Juzoor Al Oudh','q10')">Add</button>
-  </div>
-
-  <div class="card">White Oudh<br>Qty: <input type="number" value="1" id="q11"><br>
-    <button class="green" onclick="order('White Oudh','q11')">Order</button>
-    <button class="orange" onclick="addToCart('White Oudh','q11')">Add</button>
-  </div>
-
-  <div class="card">Sandalya<br>Qty: <input type="number" value="1" id="q12"><br>
-    <button class="green" onclick="order('Sandalya','q12')">Order</button>
-    <button class="orange" onclick="addToCart('Sandalya','q12')">Add</button>
-  </div>
-
-  <div class="card">Sabaya<br>Qty: <input type="number" value="1" id="q13"><br>
-    <button class="green" onclick="order('Sabaya','q13')">Order</button>
-    <button class="orange" onclick="addToCart('Sabaya','q13')">Add</button>
-  </div>
-
-  <br><button onclick="goBack()">⬅ Back</button>
+<div class="section">
+  <h2>Ittar - Premium</h2>
+  <div class="products" id="premium"></div>
 </div>
 
-<!-- PREMIUM (YOUR NEW LIST) -->
-<div id="premium" style="display:none;">
-
-  <div class="card">Oudh e Azam<br>Qty: <input type="number" value="1" id="p1"><br>
-    <button class="green" onclick="order('Oudh e Azam','p1')">Order</button>
-    <button class="orange" onclick="addToCart('Oudh e Azam','p1')">Add</button>
-  </div>
-
-  <div class="card">Afrah<br>Qty: <input type="number" value="1" id="p2"><br>
-    <button class="green" onclick="order('Afrah','p2')">Order</button>
-    <button class="orange" onclick="addToCart('Afrah','p2')">Add</button>
-  </div>
-
-  <div class="card">Mukhal Al Arab<br>Qty: <input type="number" value="1" id="p3"><br>
-    <button class="green" onclick="order('Mukhal Al Arab','p3')">Order</button>
-    <button class="orange" onclick="addToCart('Mukhal Al Arab','p3')">Add</button>
-  </div>
-
-  <div class="card">Raqs<br>Qty: <input type="number" value="1" id="p4"><br>
-    <button class="green" onclick="order('Raqs','p4')">Order</button>
-    <button class="orange" onclick="addToCart('Raqs','p4')">Add</button>
-  </div>
-
-  <div class="card">Mizan<br>Qty: <input type="number" value="1" id="p5"><br>
-    <button class="green" onclick="order('Mizan','p5')">Order</button>
-    <button class="orange" onclick="addToCart('Mizan','p5')">Add</button>
-  </div>
-
-  <div class="card">Habeeba<br>Qty: <input type="number" value="1" id="p6"><br>
-    <button class="green" onclick="order('Habeeba','p6')">Order</button>
-    <button class="orange" onclick="addToCart('Habeeba','p6')">Add</button>
-  </div>
-
-  <div class="card">Mush Al Azhar<br>Qty: <input type="number" value="1" id="p7"><br>
-    <button class="green" onclick="order('Mush Al Azhar','p7')">Order</button>
-    <button class="orange" onclick="addToCart('Mush Al Azhar','p7')">Add</button>
-  </div>
-
-  <div class="card">Rais Al Hind<br>Qty: <input type="number" value="1" id="p8"><br>
-    <button class="green" onclick="order('Rais Al Hind','p8')">Order</button>
-    <button class="orange" onclick="addToCart('Rais Al Hind','p8')">Add</button>
-  </div>
-
-  <br><button onclick="goBack()">⬅ Back</button>
+<div class="section">
+  <h2>Perfumes</h2>
+  <div class="products" id="perfumes"></div>
 </div>
 
-<!-- PERFUME -->
-<div id="perfume" style="display:none;">
-  <h3>Perfumes Coming Soon</h3>
-  <button onclick="goBack()">⬅ Back</button>
-</div>
-
-<!-- WHATSAPP -->
-<a id="whatsapp" onclick="orderCart()">💬</a>
+<div class="cart" onclick="checkout()">🛒</div>
+<div class="whatsapp" onclick="checkout()">📲</div>
 
 <script>
 let cart = [];
 
-function showCategory(type){
-  document.getElementById("home").style.display="none";
-  document.getElementById(type).style.display="block";
+const normal = ["Oudh e Azam","Afrah","Mukhal Al Arab"];
+const premium = ["Raqs","Mizan","Habeeba","Mush Al Azhar","Rais Al Hind"];
+const perfumes = ["Royal Gold","Black Musk","Desert Oud"];
+
+function displayProducts(list, id) {
+  let container = document.getElementById(id);
+  list.forEach(item => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="https://via.placeholder.com/150">
+        <h4>${item}</h4>
+        <button onclick="addToCart('${item}')">Add</button>
+      </div>
+    `;
+  });
 }
 
-function showType(type){
-  document.getElementById("ittar").style.display="none";
-  document.getElementById(type).style.display="block";
+function addToCart(item) {
+  cart.push(item);
+  alert(item + " added");
 }
 
-function goBack(){ location.reload(); }
-
-function order(name,id){
-  let qty=document.getElementById(id).value;
-  let msg=`I want to order:\n${name} x ${qty}`;
-  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
+function checkout() {
+  let message = "Order:\n" + cart.join("\n");
+  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(message)}`);
 }
 
-function addToCart(name,id){
-  let qty=document.getElementById(id).value;
-  cart.push(`${name} x ${qty}`);
-  alert("Added to cart");
-}
-
-function orderCart(){
-  if(cart.length==0){ alert("Cart empty"); return; }
-  let msg="I want to order:\n"+cart.join("\n");
-  window.open(`https://wa.me/919121486651?text=${encodeURIComponent(msg)}`);
-}
-
-function searchProduct(){
-  let input=document.getElementById("search").value.toLowerCase();
-  let cards=document.getElementsByClassName("card");
-  for(let i=0;i<cards.length;i++){
-    let text=cards[i].innerText.toLowerCase();
-    cards[i].style.display=text.includes(input)?"inline-block":"none";
-  }
-}
+displayProducts(normal,"normal");
+displayProducts(premium,"premium");
+displayProducts(perfumes,"perfumes");
 </script>
 
 </body>
